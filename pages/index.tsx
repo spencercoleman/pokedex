@@ -1,6 +1,10 @@
+import { InferGetStaticPropsType } from 'next';
+import { getPokemon } from '../utils';
 import Head from 'next/head';
 
-export default function Home() {
+export default function Home({
+	pokemon,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
 	return (
 		<>
 			<Head>
@@ -12,7 +16,19 @@ export default function Home() {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main></main>
+			<main>
+				<div></div>
+			</main>
 		</>
 	);
+}
+
+export async function getStaticProps() {
+	const pokemon = await getPokemon();
+
+	return {
+		props: {
+			pokemon,
+		},
+	};
 }
