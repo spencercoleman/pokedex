@@ -18,3 +18,12 @@ export const typeColors = {
 	steel: '#548D9E',
 	water: '#59A0DB',
 };
+
+export const formatPokemonID = (id: number) => {
+	const stringId = `${id}`;
+	return stringId.padStart(3, '0');
+};
+
+export const formatText = (text: string) => {
+	return text.charAt(0).toUpperCase() + text.slice(1);
+};
