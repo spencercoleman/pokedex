@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import { getPokemon } from '../utils';
 import Head from 'next/head';
+import PokemonList from '../components/PokemonList';
 
 export default function Home({
 	initialPokemon,
@@ -28,7 +29,7 @@ export default function Home({
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main>
-				<div></div>
+				<PokemonList pokemon={pokemon} />
 			</main>
 		</>
 	);
