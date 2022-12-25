@@ -33,3 +33,10 @@ export async function getPokemon(
 
 	return pokemon;
 }
+
+export async function getPokemonByName(
+	name: string
+): Promise<Pokemon | undefined> {
+	const pokemonData = await client.getPokemonByName(name);
+	return pokemonData;
+}
