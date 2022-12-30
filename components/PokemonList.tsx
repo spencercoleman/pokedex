@@ -1,20 +1,15 @@
-type PokemonBasic = {
-	id: number;
-	name: string;
-	sprite: string;
-	types: string[];
-};
+import { type PokemonPreview } from '../utils';
 
 interface PokemonListProps {
-	pokemon: PokemonBasic[];
+    pokemon: PokemonPreview[];
 }
 
 export default function PokemonList({ pokemon }: PokemonListProps) {
-	return (
-		<ul>
-			{pokemon.map((pokemon) => (
-				<li key={pokemon.id}>{pokemon.name}</li>
-			))}
-		</ul>
-	);
+    return (
+        <ul>
+            {pokemon.map((pokemon) => (
+                <li key={pokemon.id}>{pokemon.name}</li>
+            ))}
+        </ul>
+    );
 }

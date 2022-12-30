@@ -5,38 +5,36 @@ const DEFAULT_LIMIT = 20; // Limit results to 20 per page
 
 const client = new PokemonClient();
 
-type PokemonBasic = {
-	id: number;
-	name: string;
-	sprite: string | null;
-	types: string[];
+export type PokemonPreview = {
+    id: number;
+    name: string;
+    sprite: string | null;
+    types: string[];
 };
 
 export async function getPokemon(
-	offset: number = 1,
-	limit: number = DEFAULT_LIMIT
-): Promise<PokemonBasic[]> {
-	const pokemonPromises: Promise<Pokemon>[] = [];
+    offset: number = 1,
+    limit: number = DEFAULT_LIMIT
+): Promise<PokemonPreview[]> {
+    const pokemonPromises: Promise<Pokemon>[] = [];
 
-	for (let i = offset; i < Math.min(offset + limit, POKEMON_MAX); i++) {
-		pokemonPromises.push(client.getPokemonById(i));
-	}
+    for (let i = offset; i < Math.min(offset + limit, POKEMON_MAX); i++) {
+        pokemonPromises.push(client.getPokemonById(i));
+    }
 
-	const pokemonData = await Promise.all(pokemonPromises);
+    const pokemonData = await Promise.all(pokemonPromises);
 
-	const pokemon = pokemonData.map((pokemon) => ({
-		id: pokemon.id,
-		name: pokemon.name,
-		sprite: pokemon.sprites.front_default,
-		types: pokemon.types.map((typeData) => typeData.type.name),
-	}));
+    const pokemon = pokemonData.map((pokemon) => ({
+        id: pokemon.id,
+        name: pokemon.name,
+        sprite: pokemon.sprites.front_default,
+        types: pokemon.types.map((typeData) => typeData.type.name),
+    }));
 
-	return pokemon;
+    return pokemon;
 }
 
-export async function getPokemonByName(
-	name: string
-): Promise<Pokemon | undefined> {
-	const pokemonData = await client.getPokemonByName(name);
-	return pokemonData;
+export async function getPokemonByName(name: string): Promise<Pokemon> {
+    const pokemonData = await client.getPokemonByName(name);
+    return pokemonData;
 }
