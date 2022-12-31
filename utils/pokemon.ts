@@ -1,6 +1,6 @@
-import { Pokemon, PokemonClient } from 'pokenode-ts';
+import { PokemonClient, PokemonSpecies } from 'pokenode-ts';
 
-const POKEMON_MAX = 906; // Higher ID to fetch
+const POKEMON_MAX = 905; // Highest ID to fetch
 const DEFAULT_LIMIT = 20; // Limit results to 20 per page
 
 const client = new PokemonClient();
@@ -12,29 +12,37 @@ export type PokemonPreview = {
     types: string[];
 };
 
-export async function getPokemon(
+export async function getPokemonPreviews(
     offset: number = 1,
     limit: number = DEFAULT_LIMIT
 ): Promise<PokemonPreview[]> {
-    const pokemonPromises: Promise<Pokemon>[] = [];
+    const pokemonSpeciesPromises: Promise<PokemonSpecies>[] = [];
 
     for (let i = offset; i < Math.min(offset + limit, POKEMON_MAX); i++) {
-        pokemonPromises.push(client.getPokemonById(i));
+        pokemonSpeciesPromises.push(client.getPokemonSpeciesById(i));
     }
 
-    const pokemonData = await Promise.all(pokemonPromises);
+    const pokemonSpeciesData = await Promise.all(pokemonSpeciesPromises);
 
-    const pokemon = pokemonData.map((pokemon) => ({
-        id: pokemon.id,
-        name: pokemon.name,
-        sprite: pokemon.sprites.front_default,
-        types: pokemon.types.map((typeData) => typeData.type.name),
-    }));
+    const pokemonDataPromises = pokemonSpeciesData.map(
+        async (pokemonSpecies) => {
+            const pokemon = await client.getPokemonById(pokemonSpecies.id);
 
-    return pokemon;
+            return {
+                id: pokemonSpecies.id,
+                name: pokemonSpecies.name,
+                sprite: pokemon.sprites.front_default,
+                types: pokemon.types.map((typeData) => typeData.type.name),
+            };
+        }
+    );
+
+    const pokemonPreviews = await Promise.all(pokemonDataPromises);
+
+    return pokemonPreviews;
 }
 
-export async function getPokemonByName(name: string): Promise<Pokemon> {
-    const pokemonData = await client.getPokemonByName(name);
+export async function getPokemonByName(name: string): Promise<PokemonSpecies> {
+    const pokemonData = await client.getPokemonSpeciesByName(name);
     return pokemonData;
 }

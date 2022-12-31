@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from 'next';
-import { getPokemon, type PokemonPreview } from '../utils';
+import { getPokemonPreviews, type PokemonPreview } from '../utils';
 import Head from 'next/head';
 import PokemonList from '../components/PokemonList';
 
@@ -27,7 +27,7 @@ const Home: NextPage<HomeProps> = ({ pokemon }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-    const pokemon = await getPokemon(); // Get the first 1-20 pokemon
+    const pokemon = await getPokemonPreviews(); // Get the first 1-20 pokemon
 
     return {
         props: {
