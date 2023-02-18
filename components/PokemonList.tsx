@@ -5,9 +5,10 @@ import {
     typeColors,
 } from '../utils';
 import {
+    Box,
     Card,
     CardBody,
-    CardFooter,
+    Flex,
     Heading,
     Image,
     LinkBox,
@@ -24,7 +25,7 @@ interface PokemonListProps {
 
 export default function PokemonList({ pokemon }: PokemonListProps) {
     return (
-        <SimpleGrid columns={[2, 3, 4]} spacing={2}>
+        <SimpleGrid columns={[1, 2, 3, 4]} spacing={3}>
             {pokemon.map((pokemon) => (
                 <LinkBox
                     as={NextLink}
@@ -33,31 +34,38 @@ export default function PokemonList({ pokemon }: PokemonListProps) {
                 >
                     <Card variant="filled" size="sm">
                         <CardBody>
+                            <Flex justifyContent="space-between">
+                                <Heading size="sm">
+                                    {formatText(pokemon.name)}
+                                </Heading>
+                                <Text
+                                    fontSize="xs"
+                                    color="GrayText"
+                                    textAlign="right"
+                                >
+                                    #{formatPokemonID(pokemon.id)}
+                                </Text>
+                            </Flex>
+
                             <Image
                                 src={pokemon.sprite!}
                                 alt={pokemon.name}
                                 mx="auto"
                             />
-                            <Stack spacing={2}>
-                                <Text>#{formatPokemonID(pokemon.id)}</Text>
-                                <Heading size="sm">
-                                    {formatText(pokemon.name)}
-                                </Heading>
-                            </Stack>
+                            <Flex>
+                                <SimpleGrid columns={2} spacing={2}>
+                                    {pokemon.types.map((type) => (
+                                        <Tag
+                                            key={type}
+                                            bgColor={typeColors[type]}
+                                            size="sm"
+                                        >
+                                            {formatText(type)}
+                                        </Tag>
+                                    ))}
+                                </SimpleGrid>
+                            </Flex>
                         </CardBody>
-                        <CardFooter>
-                            <SimpleGrid columns={2} spacing={2}>
-                                {pokemon.types.map((type) => (
-                                    <Tag
-                                        key={type}
-                                        bgColor={typeColors[type]}
-                                        size="sm"
-                                    >
-                                        {formatText(type)}
-                                    </Tag>
-                                ))}
-                            </SimpleGrid>
-                        </CardFooter>
                     </Card>
                 </LinkBox>
             ))}
