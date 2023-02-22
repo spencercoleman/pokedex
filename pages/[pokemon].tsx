@@ -1,13 +1,20 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { getPokemon, formatText, type Pokemon } from '../utils';
+import { getPokemon, type Pokemon } from '../utils';
 import { ParsedUrlQuery } from 'querystring';
+import PokemonEntry from '../components/PokemonEntry';
 
 interface PokemonDetailsProps {
     pokemon: Pokemon;
 }
 
 const PokemonPage: NextPage<PokemonDetailsProps> = ({ pokemon }) => {
-    return <div>{formatText(pokemon.name)}</div>;
+    return (
+        <div>
+            <main>
+                <PokemonEntry pokemon={pokemon} />
+            </main>
+        </div>
+    );
 };
 
 interface Params extends ParsedUrlQuery {
