@@ -9,11 +9,9 @@ interface PokemonDetailsProps {
 
 const PokemonPage: NextPage<PokemonDetailsProps> = ({ pokemon }) => {
     return (
-        <div>
-            <main>
-                <PokemonEntry pokemon={pokemon} />
-            </main>
-        </div>
+        <main>
+            <PokemonEntry pokemon={pokemon} />
+        </main>
     );
 };
 
