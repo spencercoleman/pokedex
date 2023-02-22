@@ -67,7 +67,9 @@ export async function getPokemon(name: string): Promise<Pokemon> {
 
     return {
         abilities: pokemonData.abilities,
-        flavorText: pokemonSpeciesData.flavor_text_entries[6].flavor_text,
+        flavorText: pokemonSpeciesData.flavor_text_entries[6].flavor_text
+            .split('')
+            .join(' '),
         height: pokemonData.height,
         id: pokemonSpeciesData.id,
         name: pokemonSpeciesData.name,
