@@ -4,38 +4,51 @@ import { ParsedUrlQuery } from 'querystring';
 import PokemonEntry from '../components/PokemonEntry';
 
 interface PokemonDetailsProps {
-    pokemon: Pokemon;
+	pokemon: Pokemon;
+	prevPokemon: Pokemon | null;
+	nextPokemon: Pokemon | null;
 }
 
-const PokemonPage: NextPage<PokemonDetailsProps> = ({ pokemon }) => {
-    return (
-        <main>
-            <PokemonEntry pokemon={pokemon} />
-        </main>
-    );
+const PokemonPage: NextPage<PokemonDetailsProps> = ({
+	pokemon,
+	prevPokemon,
+	nextPokemon,
+}) => {
+	return (
+		<main>
+			{/* TODO: Add links for user to navigate to prev and next pokemon */}
+			<PokemonEntry pokemon={pokemon} />
+		</main>
+	);
 };
 
 interface Params extends ParsedUrlQuery {
-    pokemon: string;
+	pokemon: string;
 }
 
 export const getServerSideProps: GetServerSideProps<
-    PokemonDetailsProps,
-    Params
+	PokemonDetailsProps,
+	Params
 > = async ({ params }) => {
-    try {
-        const pokemon = await getPokemon(params!.pokemon);
+	try {
+		const pokemon = await getPokemon(params!.pokemon);
+		const prevPokemon =
+			pokemon.id - 1 > 0 ? await getPokemon(pokemon.id - 1) : null;
+		const nextPokemon =
+			pokemon.id + 1 < 905 ? await getPokemon(pokemon.id + 1) : null;
 
-        return {
-            props: {
-                pokemon: pokemon,
-            },
-        };
-    } catch (error) {
-        return {
-            notFound: true,
-        };
-    }
+		return {
+			props: {
+				pokemon,
+				prevPokemon: prevPokemon,
+				nextPokemon: nextPokemon,
+			},
+		};
+	} catch (error) {
+		return {
+			notFound: true,
+		};
+	}
 };
 
 export default PokemonPage;
