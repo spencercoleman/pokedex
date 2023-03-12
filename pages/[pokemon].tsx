@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { getPokemon, type Pokemon } from '../utils';
 import { ParsedUrlQuery } from 'querystring';
+import PokedexNav from '../components/PokedexNav';
 import PokemonEntry from '../components/PokemonEntry';
 
 interface PokemonDetailsProps {
@@ -16,8 +17,8 @@ const PokemonPage: NextPage<PokemonDetailsProps> = ({
 }) => {
 	return (
 		<main>
-			{/* TODO: Add links for user to navigate to prev and next pokemon */}
 			<PokemonEntry pokemon={pokemon} />
+			<PokedexNav prevPokemon={prevPokemon} nextPokemon={nextPokemon} />
 		</main>
 	);
 };
