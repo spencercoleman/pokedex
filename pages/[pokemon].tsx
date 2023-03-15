@@ -3,6 +3,7 @@ import { getPokemon, type Pokemon } from '../utils';
 import { ParsedUrlQuery } from 'querystring';
 import PokedexNav from '../components/PokedexNav';
 import PokemonEntry from '../components/PokemonEntry';
+import BackButton from '../components/BackButton';
 
 interface PokemonDetailsProps {
 	pokemon: Pokemon;
@@ -16,10 +17,15 @@ const PokemonPage: NextPage<PokemonDetailsProps> = ({
 	nextPokemon,
 }) => {
 	return (
-		<main>
-			<PokemonEntry pokemon={pokemon} />
+		<>
+			<nav>
+				<BackButton />
+			</nav>
 			<PokedexNav prevPokemon={prevPokemon} nextPokemon={nextPokemon} />
-		</main>
+			<main>
+				<PokemonEntry pokemon={pokemon} />
+			</main>
+		</>
 	);
 };
 
