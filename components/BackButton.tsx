@@ -1,12 +1,18 @@
-import { LinkBox, Text } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Button } from '@chakra-ui/react';
+import { ArrowLeftIcon } from '@chakra-ui/icons';
+import NextLink from 'next/link';
 
 export default function BackButton() {
-	return (
-		<LinkBox as={Link} href="/" my={2}>
-			<Text as="b" fontSize="sm" color="GrayText">
-				Back
-			</Text>
-		</LinkBox>
-	);
+    return (
+        <NextLink href="/" passHref legacyBehavior>
+            <Button
+                leftIcon={<ArrowLeftIcon />}
+                variant="outline"
+                fontSize="sm"
+                color="GrayText"
+            >
+                Back
+            </Button>
+        </NextLink>
+    );
 }
