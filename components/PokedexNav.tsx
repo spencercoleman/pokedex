@@ -1,5 +1,5 @@
 import { formatPokemonID, formatText, type Pokemon } from '../utils';
-import { Box, Card, Flex, LinkBox, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Button, SimpleGrid, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
 
@@ -15,40 +15,44 @@ export default function PokedexNav({
     return (
         <SimpleGrid columns={2} gap={3} my={3}>
             {prevPokemon ? (
-                <LinkBox as={NextLink} href={`/${prevPokemon.name}`}>
-                    <Card variant="filled" py={3} px={1}>
-                        <Flex gap={1} alignItems="center">
-                            <ChevronLeftIcon boxSize={6} />
-                            <Text color="GrayText" fontSize="sm">
-                                #{formatPokemonID(prevPokemon.id)}
-                            </Text>
-                            <Text fontSize="sm" as="b">
-                                {formatText(prevPokemon.name)}
-                            </Text>
-                        </Flex>
-                    </Card>
-                </LinkBox>
+                <NextLink href={`/${prevPokemon.name}`} passHref legacyBehavior>
+                    <Button
+                        size="lg"
+                        px={2}
+                        leftIcon={<ChevronLeftIcon boxSize={5} />}
+                        justifyContent="flex-start"
+                        fontSize="sm"
+                        fontWeight="normal"
+                    >
+                        <Text color="GrayText" mr={1}>
+                            #{formatPokemonID(prevPokemon.id)}
+                        </Text>
+                        <Text fontWeight="semibold">
+                            {formatText(prevPokemon.name)}
+                        </Text>
+                    </Button>
+                </NextLink>
             ) : (
                 <Box />
             )}
             {nextPokemon ? (
-                <LinkBox as={NextLink} href={`/${nextPokemon.name}`}>
-                    <Card variant="filled" py={3} px={1}>
-                        <Flex
-                            flexDirection="row-reverse"
-                            gap={1}
-                            alignItems="center"
-                        >
-                            <ChevronRightIcon boxSize={6} />
-                            <Text color="GrayText" fontSize="sm">
-                                #{formatPokemonID(nextPokemon.id)}
-                            </Text>
-                            <Text fontSize="sm" as="b">
-                                {formatText(nextPokemon.name)}
-                            </Text>
-                        </Flex>
-                    </Card>
-                </LinkBox>
+                <NextLink href={`/${nextPokemon.name}`} passHref legacyBehavior>
+                    <Button
+                        size="lg"
+                        px={2}
+                        rightIcon={<ChevronRightIcon boxSize={5} />}
+                        justifyContent="flex-end"
+                        fontSize="sm"
+                        fontWeight="normal"
+                    >
+                        <Text color="GrayText" mr={1}>
+                            #{formatPokemonID(nextPokemon.id)}
+                        </Text>
+                        <Text fontWeight="semibold">
+                            {formatText(nextPokemon.name)}
+                        </Text>
+                    </Button>
+                </NextLink>
             ) : (
                 <Box />
             )}

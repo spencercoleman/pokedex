@@ -6,9 +6,10 @@ export default function BackButton() {
     return (
         <NextLink href="/" passHref legacyBehavior>
             <Button
-                leftIcon={<ArrowLeftIcon />}
+                leftIcon={<ArrowLeftIcon boxSize={2.5} />}
                 variant="outline"
                 fontSize="sm"
+                fontWeight="normal"
                 color="GrayText"
             >
                 Back
