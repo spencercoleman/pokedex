@@ -23,10 +23,9 @@ export default function PokedexNav({
                         justifyContent="flex-start"
                         fontSize="sm"
                         fontWeight="normal"
+                        colorScheme="red"
                     >
-                        <Text color="GrayText" mr={1}>
-                            #{formatPokemonID(prevPokemon.id)}
-                        </Text>
+                        <Text mr={1}>#{formatPokemonID(prevPokemon.id)}</Text>
                         <Text fontWeight="semibold">
                             {formatText(prevPokemon.name)}
                         </Text>
@@ -44,10 +43,9 @@ export default function PokedexNav({
                         justifyContent="flex-end"
                         fontSize="sm"
                         fontWeight="normal"
+                        colorScheme="red"
                     >
-                        <Text color="GrayText" mr={1}>
-                            #{formatPokemonID(nextPokemon.id)}
-                        </Text>
+                        <Text mr={1}>#{formatPokemonID(nextPokemon.id)}</Text>
                         <Text fontWeight="semibold">
                             {formatText(nextPokemon.name)}
                         </Text>
