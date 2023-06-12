@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { GetStaticProps, NextPage } from 'next';
 import { getPokemonPreviews, type PokemonPreview } from '../utils';
 import PokemonList from '../components/PokemonList';
+import { Heading } from '@chakra-ui/react';
 
 interface HomeProps {
     initialPokemon: PokemonPreview[];
@@ -20,6 +21,9 @@ const Home: NextPage<HomeProps> = ({ initialPokemon }) => {
 
     return (
         <div>
+            <header>
+                <Heading mb={3}>Pokédex</Heading>
+            </header>
             <main>
                 <PokemonList pokemon={pokemon} />
                 <button onClick={fetchAdditionalPokemon}>Load More</button>
