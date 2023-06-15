@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { getPokemon, type Pokemon } from '../utils';
+import { getPokemon, POKEMON_MAX, type Pokemon } from '../utils';
 import { ParsedUrlQuery } from 'querystring';
 import PokedexNav from '../components/PokedexNav';
 import PokemonEntry from '../components/PokemonEntry';
@@ -46,7 +46,9 @@ export const getServerSideProps: GetServerSideProps<
         const prevPokemon =
             pokemon.id - 1 > 0 ? await getPokemon(pokemon.id - 1) : null;
         const nextPokemon =
-            pokemon.id + 1 < 905 ? await getPokemon(pokemon.id + 1) : null;
+            pokemon.id + 1 < POKEMON_MAX
+                ? await getPokemon(pokemon.id + 1)
+                : null;
 
         return {
             props: {

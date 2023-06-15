@@ -22,6 +22,21 @@ interface PokemonEntryProps {
 }
 
 export default function PokemonEntry({ pokemon }: PokemonEntryProps) {
+    const getUniqueAbilityNames = () => {
+        const pokemonAbilityNames: string[] = [];
+
+        pokemon.abilities.forEach((entry) => {
+            const abilityName = entry.ability.name;
+
+            if (!pokemonAbilityNames.includes(abilityName))
+                pokemonAbilityNames.push(abilityName);
+        });
+
+        return pokemonAbilityNames;
+    };
+
+    const uniqueAbilityNames = getUniqueAbilityNames();
+
     return (
         <SimpleGrid columns={[1, 2]} spacing={3}>
             <Card variant="unstyled">
@@ -62,12 +77,12 @@ export default function PokemonEntry({ pokemon }: PokemonEntryProps) {
                         <Box>
                             <Text as="b">Abilities:</Text>
                             <Flex gap={2}>
-                                {pokemon.abilities.map((entry, index) => {
+                                {uniqueAbilityNames.map((name, index) => {
                                     return (
-                                        <Text key={entry.ability.name}>
-                                            {formatText(entry.ability.name)}
+                                        <Text key={name}>
+                                            {formatText(name)}
                                             {index <
-                                            pokemon.abilities.length - 1
+                                            uniqueAbilityNames.length - 1
                                                 ? ','
                                                 : ''}
                                         </Text>
