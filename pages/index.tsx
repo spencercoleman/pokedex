@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { GetStaticProps, NextPage } from 'next';
 import { getPokemonPreviews, POKEMON_MAX, type PokemonPreview } from '../utils';
-import { Flex, Heading, Spinner, Text } from '@chakra-ui/react';
+import { Flex, Heading, Icon, Spinner, Text } from '@chakra-ui/react';
+import { MdCatchingPokemon } from 'react-icons/md';
 import PokemonSearch from '../components/PokemonSearch';
 import PokemonList from '../components/PokemonList';
 
@@ -46,12 +47,14 @@ const Home: NextPage<HomeProps> = ({ initialPokemon }) => {
     return (
         <div>
             <header>
-                <Heading mb={3}>Pokédex</Heading>
+                <Flex gap={2} alignItems="center" mb={2}>
+                    <Heading>Pokédex</Heading>
+                    <Icon as={MdCatchingPokemon} boxSize={7} color="red.500" />
+                </Flex>
             </header>
             <main>
                 <PokemonSearch />
                 <PokemonList pokemon={pokemon} />
-
                 <Flex justifyContent="center" pt={3}>
                     {isLoading && <Spinner color="red.500" />}
                     {offset >= POKEMON_MAX && (

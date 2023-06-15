@@ -4,7 +4,8 @@ import { ParsedUrlQuery } from 'querystring';
 import PokedexNav from '../components/PokedexNav';
 import PokemonEntry from '../components/PokemonEntry';
 import BackButton from '../components/BackButton';
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Icon } from '@chakra-ui/react';
+import { MdCatchingPokemon } from 'react-icons/md';
 
 interface PokemonDetailsProps {
     pokemon: Pokemon;
@@ -21,7 +22,14 @@ const PokemonPage: NextPage<PokemonDetailsProps> = ({
         <>
             <nav>
                 <Flex justify="space-between">
-                    <Heading>Pokédex</Heading>
+                    <Flex alignItems="center" gap={2}>
+                        <Heading>Pokédex</Heading>
+                        <Icon
+                            as={MdCatchingPokemon}
+                            boxSize={7}
+                            color="red.500"
+                        />
+                    </Flex>
                     <BackButton />
                 </Flex>
             </nav>
