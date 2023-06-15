@@ -78,10 +78,12 @@ export async function getPokemon(
 
     return {
         abilities: pokemonData.abilities,
-        flavorText: pokemonSpeciesData.flavor_text_entries
-            .filter((entry) => entry.language.name === 'en')[0]
-            .flavor_text.split('')
-            .join(' '),
+        flavorText: pokemonSpeciesData.flavor_text_entries.length
+            ? pokemonSpeciesData.flavor_text_entries
+                  .filter((entry) => entry.language.name === 'en')[0]
+                  .flavor_text.split('')
+                  .join(' ')
+            : 'There is currently no text entry available for this Pokémon. We are still learning more about it!',
         height: pokemonData.height,
         id: pokemonSpeciesData.id,
         name: pokemonSpeciesData.name,
