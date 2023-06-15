@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { GetStaticProps, NextPage } from 'next';
-import { getPokemonPreviews, type PokemonPreview } from '../utils';
-import { Flex, Heading, Spinner } from '@chakra-ui/react';
+import { getPokemonPreviews, POKEMON_MAX, type PokemonPreview } from '../utils';
+import { Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import PokemonSearch from '../components/PokemonSearch';
 import PokemonList from '../components/PokemonList';
 
@@ -16,6 +16,8 @@ const Home: NextPage<HomeProps> = ({ initialPokemon }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchAdditionalPokemon = async () => {
+        if (offset >= POKEMON_MAX) return;
+
         setIsLoading(true);
 
         const newPokemon = await getPokemonPreviews(offset, OFFSET_INCREMENT);
@@ -33,7 +35,6 @@ const Home: NextPage<HomeProps> = ({ initialPokemon }) => {
         ) {
             return;
         }
-
         fetchAdditionalPokemon();
     };
 
@@ -51,11 +52,14 @@ const Home: NextPage<HomeProps> = ({ initialPokemon }) => {
                 <PokemonSearch />
                 <PokemonList pokemon={pokemon} />
 
-                {isLoading && (
-                    <Flex justifyContent="center" pt={3}>
-                        <Spinner color="red.500" />
-                    </Flex>
-                )}
+                <Flex justifyContent="center" pt={3}>
+                    {isLoading && <Spinner color="red.500" />}
+                    {offset >= POKEMON_MAX && (
+                        <Text color="GrayText">
+                            You reached the end of the Pokédex
+                        </Text>
+                    )}
+                </Flex>
             </main>
         </div>
     );

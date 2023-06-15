@@ -5,8 +5,8 @@ import {
     PokemonStat,
 } from 'pokenode-ts';
 
-const POKEMON_MAX = 905; // Highest ID to fetch
-const DEFAULT_LIMIT = 20; // Limit results to 20 per page
+export const POKEMON_MAX = 1011; // Highest ID to fetch
+const DEFAULT_LIMIT = 48; // Limit results to 48 per page
 
 const client = new MainClient();
 
